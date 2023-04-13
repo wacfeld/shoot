@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <chrono>
 
 #include "drawer.h"
 
@@ -35,21 +36,23 @@ int main()
 
   init();
 
-  int x=300,y=300;
-  unsigned char r, g, b;
-  for(int i = 0; i < 200; i++)
-  {
-    r = rand();
-    g = rand();
-    b = rand();
-    SDL_SetRenderDrawColor(grend, r, g, b, 0xFF);
-    for(int j = 0; j < 200; j++)
-    {
-      SDL_RenderDrawPoint(grend, x+j, y+i);
-    }
+  int x=300, y=300;
+  
+  // SDL_Texture *text = loadTexture("media/monalisa.jpg");
+  // SDL_RenderCopy(grend, text, NULL, NULL);
+  SDL_Surface *surf = IMG_Load("media/monalisa.jpg");
+  // printf("%x\n", surf->format->Bmask);
+  
+  using clock = std::chrono::system_clock;
+  using sec = std::chrono::duration<double>;
+// for milliseconds, use using ms = std::chrono::duration<double, std::milli>;
+
+  const auto before = clock::now();
+  draw(0,0, surf);
   update();
-  getchar();
-  }
+  const sec duration = clock::now() - before;
+
+  std::cout << "It took " << duration.count() << "s" << std::endl;
 
   hang();
   close();

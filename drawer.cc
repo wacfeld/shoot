@@ -1,7 +1,7 @@
 #include "drawer.h"
 
 const int SCREEN_WIDTH = 1200;
-const int SCREEN_HEIGHT = 700;
+const int SCREEN_HEIGHT = 530;
 
 SDL_Window* gwin = NULL;
 SDL_Renderer* grend = NULL;
@@ -87,7 +87,7 @@ void close()
 	SDL_Quit();
 }
 
-SDL_Texture* loadTexture( std::string path )
+SDL_Texture* loadTexture(std::string path)
 {
 	//The final texture
 	SDL_Texture* newTexture = NULL;
@@ -130,4 +130,51 @@ void hang()
 			}
 		}
 	}
+}
+
+void drawPixel(int x, int y, Pixel p)
+{
+  SDL_SetRenderDrawColor(grend, p.r, p.g, p.b, 0xFF);
+  SDL_RenderDrawPoint(grend, x, y);
+}
+
+int evenness(int n)
+{
+  int c = 0;
+  while(n % 2 != 0)
+  {
+    c++;
+    n >>= 1;
+  }
+  return c;
+}
+
+void draw(int X, int Y, SDL_Surface *surf)
+{
+  uint32_t R, G, B;
+  R = surf->format->Rmask;
+  G = surf->format->Gmask;
+  B = surf->format->Bmask;
+
+  int Rz, Gz, Bz;
+  Rz = evenness(R);
+  Gz = evenness(G);
+  Bz = evenness(B);
+  
+  int b = surf->format->BytesPerPixel;
+  int pitch = surf->pitch;
+  
+  uint32_t pix;
+  Pixel p;
+  for(int x = 0; x < surf->w; x++)
+  {
+    for(int y = 0; y < surf->h; y++)
+    {
+      memcpy(&pix, (char*) surf->pixels + x*pitch + y*b, b);
+      p.r = pix << Rz;
+      p.g = pix << Gz;
+      p.b = pix << Bz;
+      drawPixel(X+x, Y+y, p);
+    }
+  }
 }

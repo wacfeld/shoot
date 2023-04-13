@@ -11,6 +11,13 @@ extern const int SCREEN_HEIGHT;
 extern SDL_Window *gwin;
 extern SDL_Renderer *grend;
 
+struct Pixel
+{
+  unsigned char r;
+  unsigned char g;
+  unsigned char b;
+};
+
 void update();
 
 bool init();
@@ -21,6 +28,8 @@ void hang();
 
 void close();
 
-// SDL_Texture* loadTexture( std::string path );
+SDL_Texture* loadTexture( std::string path );
+
+void draw(int X, int Y, SDL_Surface *surf);
 
 #endif
