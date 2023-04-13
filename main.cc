@@ -1,4 +1,7 @@
 #include <iostream>
+#include <stdlib.h>
+
+#include "drawer.h"
 
 int main()
 {
@@ -30,4 +33,24 @@ int main()
 	////Update screen
 	//SDL_RenderPresent( grend );
 
+  init();
+
+  int x=300,y=300;
+  unsigned char r, g, b;
+  for(int i = 0; i < 200; i++)
+  {
+    r = rand();
+    g = rand();
+    b = rand();
+    SDL_SetRenderDrawColor(grend, r, g, b, 0xFF);
+    for(int j = 0; j < 200; j++)
+    {
+      SDL_RenderDrawPoint(grend, x+j, y+i);
+    }
+  update();
+  getchar();
+  }
+
+  hang();
+  close();
 }
