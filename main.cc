@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "drawer.h"
+#include "linalg.h"
 
 int main()
 {
@@ -34,26 +35,34 @@ int main()
 	////Update screen
 	//SDL_RenderPresent( grend );
 
-  init();
+  // init();
 
-  int x=300, y=300;
+  // int x=300, y=300;
   
   // SDL_Texture *text = loadTexture("media/monalisa.jpg");
-  // SDL_RenderCopy(grend, text, NULL, NULL);
-  SDL_Surface *surf = IMG_Load("media/monalisa.jpg");
-  // printf("%x\n", surf->format->Bmask);
+  // SDL_Rect dest = {100,100,300,300};
+  // SDL_RenderCopy(grend, text, NULL, &dest);
+  // update();
   
-  using clock = std::chrono::system_clock;
-  using sec = std::chrono::duration<double>;
-// for milliseconds, use using ms = std::chrono::duration<double, std::milli>;
+  // // SDL_Surface *surf = IMG_Load("media/monalisa.jpg");
+  // // // printf("%x\n", surf->format->Bmask);
+  
+  // // using clock = std::chrono::system_clock;
+  // // using sec = std::chrono::duration<double>;
+// // // for milliseconds, use using ms = std::chrono::duration<double, std::milli>;
 
-  const auto before = clock::now();
-  draw(0,0, surf);
-  update();
-  const sec duration = clock::now() - before;
+  // // const auto before = clock::now();
+  // // draw(0,0, surf);
+  // // update();
+  // // const sec duration = clock::now() - before;
 
-  std::cout << "It took " << duration.count() << "s" << std::endl;
+  // // std::cout << "It took " << duration.count() << "s" << std::endl;
 
-  hang();
-  close();
+  // hang();
+  // close();
+
+  Point p1 {1,2,3};
+  Point p2{3,2,1};
+  Line l{p1, p2};
+  std::cout << l << std::endl;
 }
