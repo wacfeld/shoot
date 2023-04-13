@@ -40,3 +40,25 @@ Line::Line(Point p1, Point p2)
     dir = p2 - p1;
   }
 }
+
+Plane::Plane(Point p1, Point p2, Point p3)
+{
+  p = p1;
+  
+  if(p2.vec && p3.vec)
+  {
+    d1 = p2;
+    d2 = p3;
+  }
+
+  else if(!p2.vec && !p3.vec)
+  {
+    d1 = p2-p1;
+    d2 = p3-p1;
+  }
+  
+  else
+  {
+    std::cerr << "Plane(): invalid combination\n";
+  }
+}
