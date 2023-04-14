@@ -76,12 +76,12 @@ int main()
   // std::cout << inter << std::endl;
 
   Orient o {0, 0, 0.2};
-  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 1};
+  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 5};
   // Rectangle r = cam.getRect();
   
   Point bl {30,0,-10};
-  Vec h {0, 17.88, 0};
-  Vec w {0, 0, 12};
+  Vec h {0, 1.788, 0};
+  Vec w {0, 0, 1.2};
   Rectangle wr {bl, bl+w, bl+h, bl+h+w};
 
   init();
@@ -93,6 +93,7 @@ int main()
   Rectangle proj = project(wr, cam.plane, cam.p);
   proj = proj.unorient(o);
   
+  cam.screenQuad(proj);
 
   close();
 }

@@ -7,9 +7,9 @@ struct Line;
 struct Plane;
 struct Rectangle;
 struct Orient;
-struct Point2D;
 
 typedef Point Vec;
+typedef Point Point2D;
 
 std::ostream &operator<<(std::ostream &out, Point p);
 std::ostream &operator<<(std::ostream &out, Line l);
@@ -46,18 +46,17 @@ struct Point
 
   Point() {}
   Point(double ex, double why, double zee): x{ex}, y{why}, z{zee} {}
+  Point(double _x, double _y): x{_x}, y{_y}, z{0} {}
   
+  Point lshift();
+  Point rshift();
+
   Vec rotateX(double th);
   Vec rotateY(double th);
   Vec rotateZ(double th);
 
   Point orient(Orient o);
   Point unorient(Orient o);
-};
-
-struct Point2D: public Point
-{
-  Point2D(double _x, double _y): Point{_x,_y,0} {}
 };
 
 struct Line

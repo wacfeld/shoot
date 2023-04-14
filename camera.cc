@@ -23,17 +23,31 @@ Point2D Camera::cent2tl(Point2D P)
   return P - tl;
 }
 
-SDL_Point Camera::scale(SDL_Point P)
+Point2D Camera::scale(Point2D P)
 {
-  
+  P.x = SCREEN_WIDTH * P.x / width;
+  P.y = SCREEN_HEIGHT * P.y / height;
+  return P;
 }
 
-SDL_Rect Camera::screenRect(Rectangle proj)
+void Camera::screenQuad(Rectangle proj)
 {
   // unorient proj so it's parallel to the YZ plane
   Rectangle rect = proj.unorient(o);
 
   // calculate relation to screen
+  Point2D tl = rect.tl().lshift();
+  Point2D bl = rect.bl().lshift();
+  Point2D tr = rect.tr().lshift();
+  Point2D br = rect.br().lshift();
+  
+  std::cout << bl << " " << br << " " << tl << " " << tr << std::endl;
+  tl = scale(cent2tl(tl));
+  bl = scale(cent2tl(bl));
+  br = scale(cent2tl(br));
+  tr = scale(cent2tl(tr));
+
+  std::cout << bl << " " << br << " " << tl << " " << tr << std::endl;
 }
 
 // Rectangle Camera::getRect()

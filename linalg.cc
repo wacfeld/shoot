@@ -31,6 +31,16 @@ std::ostream &operator<<(std::ostream &out, Plane pl)
   return out;
 }
 
+Point Point::lshift()
+{
+  return {y,z,x};
+}
+
+Point Point::rshift()
+{
+  return {z,x,y};
+}
+
 Point cross(Point v1, Point v2)
 {
   return {

@@ -16,7 +16,7 @@ struct Camera
 
   Point2D cent2tl(Point2D P);
   Point2D scale(Point2D P);
-  SDL_Rect screenRect(Rectangle proj);
+  void screenQuad(Rectangle proj);
 };
 
 #endif
