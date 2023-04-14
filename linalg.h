@@ -6,6 +6,8 @@ struct Point;
 struct Line;
 struct Plane;
 
+typedef Point Vec;
+
 std::ostream &operator<<(std::ostream &out, Point &p);
 std::ostream &operator<<(std::ostream &out, Line &l);
 std::ostream &operator<<(std::ostream &out, Plane &pl);

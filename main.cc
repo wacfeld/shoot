@@ -61,16 +61,20 @@ int main()
   // hang();
   // close();
 
-  Point p1 {1, 0, 1};
-  Point p2 {2, 0.5, 0.5};
-  Point p3 {0.5, 0.5, 0.5};
-  Plane pl = points2plane(p1, p2, p3);
+  // Point p1 {1, 0, 1};
+  // Point p2 {2, 0.5, 0.5};
+  // Point p3 {0.5, 0.5, 0.5};
+  // Plane pl = points2plane(p1, p2, p3);
   
-  Point D {2,2,3};
-  Point E {1,-1,0.5};
-  Line l = points2line(D, E);
-  std::cout << l << std::endl;
+  // Point D {2,2,3};
+  // Point E {1,-1,0.5};
+  // Line l = points2line(D, E);
+  // std::cout << l << std::endl;
 
-  Point inter = intersect(pl, l);
-  std::cout << inter << std::endl;
+  // Point inter = intersect(pl, l);
+  // std::cout << inter << std::endl;
+
+  Camera cam {{0, 0, 0}, 0, 0, 0, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 1};
+  
+  Rectangle r = cam.getRect();
 }

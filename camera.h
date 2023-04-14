@@ -4,10 +4,11 @@
 
 struct Camera
 {
-  double x, y, z;
-  double pitch, yaw, roll;
-  double width;
-  Rectangle rect;
+  Point cent;
+  double alt, azi, roll; // radians
+  double width, height;
+  double dist;
+  Rectangle getRect();
 };
 
 #endif
