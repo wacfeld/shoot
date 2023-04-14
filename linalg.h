@@ -32,11 +32,10 @@ struct Line
 
 struct Plane
 {
-  Point p;
-  Vec d1;
-  Vec d2;
+  double a, b, c, d; // ax + by + cz = d
 
   Plane(Point p1, Point p2, Point p3);
+  Vec normal();
 };
 
 #endif

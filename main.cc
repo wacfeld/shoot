@@ -61,8 +61,9 @@ int main()
   // hang();
   // close();
 
-  Point p1 {1,2,3};
-  Point p2{3,2,1};
-  Line l{p1, p2};
-  std::cout << l << std::endl;
+  Point p1 {1, 0, 1};
+  Point p2 {2, 0.5, 0.5};
+  Point p3 {0.5, 0.5, 0.5};
+
+  Plane pl {p1, p2, p3};
 }
