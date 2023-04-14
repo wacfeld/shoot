@@ -93,7 +93,7 @@ Point Plane::normal()
   return {a, b, c};
 }
 
-Rectangle::Rectangle(Point _tl, Point _h, Point _w): tl{_tl}, h{_h}, w{_w} {}
+Rectangle::Rectangle(Point _tl, Point _w, Point _h): tl{_tl}, w{_w}, h{_h} {}
 
 Point Rectangle::tr()
 {

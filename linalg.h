@@ -50,8 +50,8 @@ struct Plane
 struct Rectangle
 {
   Point tl;
-  Point h;
   Point w;
+  Point h;
 
   Rectangle(Point tl, Point h, Point w);
   Plane plane();
