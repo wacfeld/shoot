@@ -8,6 +8,11 @@ Rectangle Camera::getRect()
   Vec bl = rec_cent + Point{0, -height/2, -width/2};
   Vec br = rec_cent + Point{0, -height/2, width/2};
   Vec tl = rec_cent + Point{0, height/2, -width/2};
+
+  // rotate according to roll
+  bl = bl.rotateX(roll);
+  br = br.rotateX(roll);
+  tl = tl.rotateX(roll);
   
   // rotate according to altitude
   bl = bl.rotateZ(alt);
