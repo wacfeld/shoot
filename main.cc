@@ -64,6 +64,12 @@ int main()
   Point p1 {1, 0, 1};
   Point p2 {2, 0.5, 0.5};
   Point p3 {0.5, 0.5, 0.5};
-
   Plane pl {p1, p2, p3};
+  
+  Point D {2,2,3};
+  Point E {1,-1,0.5};
+  Line l {D, E};
+
+  Point inter = intersect(pl, l);
+  std::cout << inter << std::endl;
 }

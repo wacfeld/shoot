@@ -10,9 +10,18 @@ typedef Point Vec;
 
 std::ostream &operator<<(std::ostream &out, Point &p);
 std::ostream &operator<<(std::ostream &out, Line &l);
+std::ostream &operator<<(std::ostream &out, Plane &pl);
 
 Vec operator-(Point p1, Point p2);
+Vec operator+(Vec v1, Vec v2);
+Vec operator*(double c, Vec v);
+Vec operator*(Vec v, double c);
+
 Vec makeVec(double x, double y, double z);
+
+Point intersect(Plane pl, Line l);
+bool parallel(Plane pl, Line l);
+bool zero(Point p);
 
 struct Point
 {
