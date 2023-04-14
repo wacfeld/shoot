@@ -117,13 +117,43 @@ Vec Plane::normal()
   return makeVec(a, b, c);
 }
 
+Rectangle::Rectangle(Point _tl, Vec _h, Vec _w): tl{_tl}, h{_h}, w{_w}
+{
+  tl.vec = false;
+  tl.vec = true;
+  tl.vec = true;
+}
+
+Point Rectangle::tr()
+{
+  Point p = tl+w;
+  p.vec = false;
+  return p;
+}
+
+Point Rectangle::bl()
+{
+  Point p = tl+h;
+  p.vec = false;
+  return p;
+}
+
+Point Rectangle::br()
+{
+  Point p = tl+h+w;
+  p.vec = false;
+  return p;
+}
+
+Plane Rectangle::plane()
+{
+  Plane pl {
+}
+
 Point intersect(Plane pl, Line l)
 {
-  std::cout << pl << std::endl;
-  std::cout << l << std::endl;
   double numer = pl.d - (pl.a*l.p.x + pl.b*l.p.y + pl.c*l.p.z);
   double denom = pl.a*l.dir.x + pl.b*l.dir.y + pl.c*l.dir.z;
-  std::cout << denom << std::endl;
   double t = numer/denom;
   
   Point p = l.p + t*l.dir;

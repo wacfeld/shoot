@@ -47,4 +47,18 @@ struct Plane
   Vec normal();
 };
 
+struct Rectangle
+{
+  Point tl;
+  Vec h;
+  Vec w;
+
+  Rectangle(Point tl, Vec h, Vec w);
+  Plane plane();
+
+  Point tr();
+  Point bl();
+  Point br();
+};
+
 #endif
