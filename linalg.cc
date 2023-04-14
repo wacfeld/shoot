@@ -4,7 +4,7 @@
 
 std::ostream &operator<<(std::ostream &out, Rectangle rect)
 {
-  out << rect.bl << " " << rect.tl() << " " << rect.tr() << " " << rect.br();
+  out << rect.bl() << " " << rect.tl() << " " << rect.tr() << " " << rect.br();
   // out << rect.bl << std::endl << rect.tl() << std::endl << rect.tr() << std::endl << rect.br();
   return out;
 }
@@ -102,7 +102,9 @@ Point Plane::normal()
   return {a, b, c};
 }
 
-Rectangle::Rectangle(Point _bl, Point _w, Point _h): bl{_bl}, w{_w}, h{_h} {}
+// Rectangle::Rectangle(Point _bl, Point _w, Point _h): bl_dat{_bl}, w{_w}, h{_h} {}
+
+Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): bl_dat{bl}, w{br-bl}, h{tl-bl} {}
 
 // Point Rectangle::tr()
 // {
@@ -124,7 +126,7 @@ Rectangle::Rectangle(Point _bl, Point _w, Point _h): bl{_bl}, w{_w}, h{_h} {}
 
 Plane Rectangle::plane()
 {
-  return pdir2plane(bl, w, h);
+  return pdir2plane(bl_dat, w, h);
 }
 
 Point intersect(Plane pl, Line l)
@@ -145,6 +147,29 @@ bool parallel(Plane pl, Line l)
 bool zero(Point p)
 {
   return p.x == 0 && p.y == 0 && p.z == 0;
+}
+
+Rectangle project(Rectangle src, Rectangle dest, Point p)
+{
+  return project(src, dest.plane(), p);
+}
+
+Rectangle project(Rectangle src, Plane dest, Point p)
+{
+  Line l = points2line(src.bl(), p);
+  Point bl = intersect(dest, l);
+  
+  l = points2line(src.br(), p);
+  Point br = intersect(dest, l);
+
+  l = points2line(src.tl(), p);
+  Point tl = intersect(dest, l);
+
+  l = points2line(src.tr(), p);
+  Point tr = intersect(dest, l);
+  
+  Rectangle res {bl, br, tl, tr};
+  return res;
 }
 
 double deg2rad(double deg)

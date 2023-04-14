@@ -23,6 +23,9 @@ Point intersect(Plane pl, Line l);
 bool parallel(Plane pl, Line l);
 bool zero(Point p);
 
+Rectangle project(Rectangle src, Rectangle dest, Point p);
+Rectangle project(Rectangle src, Plane dest, Point p);
+
 double deg2rad(double deg);
 
 Line points2line(Point p1, Point p2);
@@ -59,16 +62,18 @@ struct Plane
 
 struct Rectangle
 {
-  Point bl;
+  Point bl_dat;
   Point w;
   Point h;
 
-  Rectangle(Point bl, Point h, Point w);
+  // Rectangle(Point bl, Point h, Point w);
+  Rectangle(Point bl, Point br, Point tl, Point tr);
   Plane plane();
 
-  Point tr() {return bl + h + w;}
-  Point tl() {return bl + h;}
-  Point br() {return bl + w;}
+  Point bl() {return bl_dat;}
+  Point tr() {return bl_dat + h + w;}
+  Point tl() {return bl_dat + h;}
+  Point br() {return bl_dat + w;}
 };
 
 #endif

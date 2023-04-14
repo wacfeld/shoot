@@ -25,7 +25,7 @@ Rectangle Camera::getRect()
   tl = tl.rotateY(azi);
 
   // form the rectangle
-  Rectangle rect {bl, br-bl, tl-bl};
+  Rectangle rect {bl, br, tl, br+(tl-bl)};
   return rect;
   
   // // use alt and azi to calculate unit direction vector that camera is facing in
