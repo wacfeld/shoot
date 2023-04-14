@@ -203,3 +203,21 @@ Vec Point::rotateZ(double th)
   v.z = z;
   return v;
 }
+
+Point::orient(Orient o)
+{
+  Point p {x,y,z};
+  p = p.rotateX(roll);
+  p = p.rotateZ(alt);
+  p = p.rotateY(azi);
+  return p;
+}
+
+Point::unorient(Orient o)
+{
+  Point p {x,y,z};
+  p = p.rotateY(-azi);
+  p = p.rotateZ(-alt);
+  p = p.rotateX(-roll);
+  return p;
+}

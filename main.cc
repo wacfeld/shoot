@@ -75,7 +75,7 @@ int main()
   // Point inter = intersect(pl, l);
   // std::cout << inter << std::endl;
 
-  Camera cam {{0, 0, 0}, 0, 0, 0.2, 1.6, 0.9, 1};
+  Camera cam {{0, 0, 0}, {0, 0, 0.2}, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 1};
   Rectangle r = cam.getRect();
   
   Point bl {30,0,-10};
@@ -89,7 +89,8 @@ int main()
 
   Wall wall {wr, text};
 
-  // Plane cpl = cam.rect.plane();
+  Rectangle proj = project(wr, r, cam.p);
+  
 
   close();
 }

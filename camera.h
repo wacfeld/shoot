@@ -4,11 +4,14 @@
 
 struct Camera
 {
-  Point cent;
-  double alt, azi, roll; // radians
+  Point p;
+  // double alt, azi, roll; // radians
+  Orient o;
   double width, height;
   double dist;
-  Rectangle getRect();
+  Plane pl;
+  
+  Camera(Point p, Orient o, double width, double height, double dist);
 };
 
 #endif

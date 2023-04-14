@@ -33,6 +33,11 @@ Line pdir2line(Point p, Point dir);
 Plane points2plane(Point p1, Point p2, Point p3);
 Plane pdir2plane(Point p, Point d1, Point d2);
 
+struct Orient
+{
+  double alt, azi, roll; // radians
+};
+
 struct Point
 {
   double x, y, z;
@@ -43,6 +48,9 @@ struct Point
   Vec rotateX(double th);
   Vec rotateY(double th);
   Vec rotateZ(double th);
+
+  Point orient(Orient o);
+  Point unorient(Orient o);
 };
 
 struct Line
