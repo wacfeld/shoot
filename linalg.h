@@ -5,12 +5,14 @@
 struct Point;
 struct Line;
 struct Plane;
+struct Rectangle;
 
 typedef Point Vec;
 
-std::ostream &operator<<(std::ostream &out, Point &p);
-std::ostream &operator<<(std::ostream &out, Line &l);
-std::ostream &operator<<(std::ostream &out, Plane &pl);
+std::ostream &operator<<(std::ostream &out, Point p);
+std::ostream &operator<<(std::ostream &out, Line l);
+std::ostream &operator<<(std::ostream &out, Plane pl);
+std::ostream &operator<<(std::ostream &out, Rectangle rect);
 
 Point operator-(Point p1, Point p2);
 Point operator+(Point v1, Point v2);

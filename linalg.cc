@@ -2,7 +2,13 @@
 
 #include "linalg.h"
 
-std::ostream &operator<<(std::ostream &out, Point &p)
+std::ostream &operator<<(std::ostream &out, Rectangle rect)
+{
+  out << rect.bl << " " << rect.tl() << " " << rect.tr() << " " << rect.br();
+  return out;
+}
+
+std::ostream &operator<<(std::ostream &out, Point p)
 {
   out << "(";
   out << p.x << "," << p.y << "," << p.z;
@@ -10,13 +16,13 @@ std::ostream &operator<<(std::ostream &out, Point &p)
   return out;
 }
 
-std::ostream &operator<<(std::ostream &out, Line &l)
+std::ostream &operator<<(std::ostream &out, Line l)
 {
   out << l.p << " + t" << l.dir;
   return out;
 }
 
-std::ostream &operator<<(std::ostream &out, Plane &pl)
+std::ostream &operator<<(std::ostream &out, Plane pl)
 {
   // not supported by all the compilers i could install
   // out << std::format("%fx + %fy + %fz = %f", pl.a, pl.b, pl.c, pl.d);
