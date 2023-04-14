@@ -32,4 +32,5 @@ SDL_Texture* loadTexture( std::string path );
 
 void draw(int X, int Y, SDL_Surface *surf);
 
+SDL_Point getsize(SDL_Texture *texture);
 #endif

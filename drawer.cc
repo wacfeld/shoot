@@ -178,3 +178,12 @@ void draw(int X, int Y, SDL_Surface *surf)
     }
   }
 }
+
+// https://discourse.libsdl.org/t/sdl2-get-the-texture-width-and-height/27053/2
+SDL_Point getsize(SDL_Texture *texture)
+{
+    SDL_Point size;
+    SDL_QueryTexture(texture, NULL, NULL, &size.x, &size.y);
+    return size;
+}
+

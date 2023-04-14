@@ -77,5 +77,12 @@ int main()
 
   Camera cam {{0, 0, 0}, 0, 0, 0, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 1};
   
-  // Rectangle r = cam.getRect();
+  Rectangle r = cam.getRect();
+
+  init();
+  SDL_Texture *text = loadTexture("media/monalisa.jpg");
+  SDL_Point size = getsize(text);
+  std::cout << size.x << " " << size.y << std::endl;
+
+  close();
 }
