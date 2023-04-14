@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "linalg.h"
 
 std::ostream &operator<<(std::ostream &out, Point &p)
@@ -93,29 +95,29 @@ Point Plane::normal()
   return {a, b, c};
 }
 
-Rectangle::Rectangle(Point _tl, Point _w, Point _h): tl{_tl}, w{_w}, h{_h} {}
+Rectangle::Rectangle(Point _bl, Point _w, Point _h): bl{_bl}, w{_w}, h{_h} {}
 
-Point Rectangle::tr()
-{
-  Point p = tl+w;
-  return p;
-}
+// Point Rectangle::tr()
+// {
+//   Point p = tl+w;
+//   return p;
+// }
 
-Point Rectangle::bl()
-{
-  Point p = tl+h;
-  return p;
-}
+// Point Rectangle::bl()
+// {
+//   Point p = tl+h;
+//   return p;
+// }
 
-Point Rectangle::br()
-{
-  Point p = tl+h+w;
-  return p;
-}
+// Point Rectangle::br()
+// {
+//   Point p = tl+h+w;
+//   return p;
+// }
 
 Plane Rectangle::plane()
 {
-  return pdir2plane(tl, h, w);
+  return pdir2plane(bl, w, h);
 }
 
 Point intersect(Plane pl, Line l)
@@ -136,4 +138,36 @@ bool parallel(Plane pl, Line l)
 bool zero(Point p)
 {
   return p.x == 0 && p.y == 0 && p.z == 0;
+}
+
+double deg2rad(double deg)
+{
+  return deg*M_PI/180;
+}
+
+Vec Point::rotateX(double th)
+{
+  Vec v;
+  v.x = x;
+  v.y = y*cos(th) - z*sin(th);
+  v.z = y*sin(th) + z*cos(th);
+  return v;
+}
+
+Vec Point::rotateY(double th)
+{
+  Vec v;
+  v.x = x*cos(th) + z*sin(th);
+  v.y = y;
+  v.z = -x*sin(th) + z*cos(th);
+  return v;
+}
+
+Vec Point::rotateZ(double th)
+{
+  Vec v;
+  v.x = x*cos(th) - y*sin(th);
+  v.y = x*sin(th) + y*cos(th);
+  v.z = z;
+  return v;
 }

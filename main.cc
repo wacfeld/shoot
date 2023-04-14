@@ -4,6 +4,7 @@
 
 #include "drawer.h"
 #include "linalg.h"
+#include "camera.h"
 
 int main()
 {
@@ -76,5 +77,5 @@ int main()
 
   Camera cam {{0, 0, 0}, 0, 0, 0, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 1};
   
-  Rectangle r = cam.getRect();
+  // Rectangle r = cam.getRect();
 }

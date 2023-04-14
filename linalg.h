@@ -21,6 +21,8 @@ Point intersect(Plane pl, Line l);
 bool parallel(Plane pl, Line l);
 bool zero(Point p);
 
+double deg2rad(double deg);
+
 Line points2line(Point p1, Point p2);
 Line pdir2line(Point p, Point dir);
 Plane points2plane(Point p1, Point p2, Point p3);
@@ -32,6 +34,10 @@ struct Point
 
   Point() {}
   Point(double ex, double why, double zee): x{ex}, y{why}, z{zee} {}
+  
+  Vec rotateX(double th);
+  Vec rotateY(double th);
+  Vec rotateZ(double th);
 };
 
 struct Line
@@ -51,16 +57,16 @@ struct Plane
 
 struct Rectangle
 {
-  Point tl;
+  Point bl;
   Point w;
   Point h;
 
-  Rectangle(Point tl, Point h, Point w);
+  Rectangle(Point bl, Point h, Point w);
   Plane plane();
 
-  Point tr();
-  Point bl();
-  Point br();
+  Point tr() {return bl + h + w;}
+  Point tl() {return bl + h;}
+  Point br() {return bl + w;}
 };
 
 #endif
