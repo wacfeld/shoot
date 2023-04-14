@@ -4,7 +4,7 @@
 Rectangle Camera::getRect()
 {
   // create the rectangle's 3 corners with alt=0, azi=0, roll=0
-  Vec rec_cent = cent + Point{0,0,0} * dist;
+  Vec rec_cent = cent + Point{1,0,0} * dist;
   Vec bl = rec_cent + Point{0, -height/2, -width/2};
   Vec br = rec_cent + Point{0, -height/2, width/2};
   Vec tl = rec_cent + Point{0, height/2, -width/2};

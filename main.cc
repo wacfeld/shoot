@@ -75,14 +75,15 @@ int main()
   // Point inter = intersect(pl, l);
   // std::cout << inter << std::endl;
 
-  Camera cam {{0, 0, 0}, 0, 0, 0, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 1};
-  
+  Camera cam {{0, 0, 0}, 0.2, 0, 0, 1.6, 0.9, 1};
+  std::cout << cam.dist << std::endl;
   Rectangle r = cam.getRect();
+  std::cout << r << std::endl;
 
-  init();
-  SDL_Texture *text = loadTexture("media/monalisa.jpg");
-  SDL_Point size = getsize(text);
-  std::cout << size.x << " " << size.y << std::endl;
+  // init();
+  // SDL_Texture *text = loadTexture("media/monalisa.jpg");
+  // SDL_Point size = getsize(text);
+  // std::cout << size.x << " " << size.y << std::endl;
 
-  close();
+  // close();
 }

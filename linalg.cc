@@ -5,6 +5,7 @@
 std::ostream &operator<<(std::ostream &out, Rectangle rect)
 {
   out << rect.bl << " " << rect.tl() << " " << rect.tr() << " " << rect.br();
+  // out << rect.bl << std::endl << rect.tl() << std::endl << rect.tr() << std::endl << rect.br();
   return out;
 }
 
