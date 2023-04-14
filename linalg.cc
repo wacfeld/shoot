@@ -2,9 +2,9 @@
 
 std::ostream &operator<<(std::ostream &out, Point &p)
 {
-  out << (p.vec ? "[" : "(");
+  out << "(";
   out << p.x << "," << p.y << "," << p.z;
-  out << (p.vec ? "]" : ")");
+  out << ")";
   return out;
 }
 
@@ -22,132 +22,100 @@ std::ostream &operator<<(std::ostream &out, Plane &pl)
   return out;
 }
 
-Vec cross(Vec v1, Vec v2)
+Point cross(Point v1, Point v2)
 {
-  return makeVec(
-      v1.y*v2.z - v1.z*v2.y,
-      v1.z*v2.x - v1.x*v2.z,
-      v1.x*v2.y - v1.y*v2.x
-      );
+  return {
+    v1.y*v2.z - v1.z*v2.y,
+    v1.z*v2.x - v1.x*v2.z,
+    v1.x*v2.y - v1.y*v2.x
+  };
 }
 
-double dot(Vec v1, Vec v2)
+double dot(Point v1, Point v2)
 {
   return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 }
 
-Vec operator-(Point p1, Point p2)
+Point operator-(Point p1, Point p2)
 {
-  return makeVec(p1.x-p2.x, p1.y-p2.y, p1.z-p2.z);
+  return {p1.x-p2.x, p1.y-p2.y, p1.z-p2.z};
 }
 
-Vec operator+(Vec v1, Vec v2)
+Point operator+(Point v1, Point v2)
 {
-  return makeVec(v1.x+v2.x, v1.y+v2.y, v1.z+v2.z);
+  return {v1.x+v2.x, v1.y+v2.y, v1.z+v2.z};
 }
 
-Vec operator*(double c, Vec v)
+Point operator*(double c, Point v)
 {
-  return makeVec(c*v.x, c*v.y, c*v.z);
+  return {c*v.x, c*v.y, c*v.z};
 }
 
-Vec operator*(Vec v, double c)
+Point operator*(Point v, double c)
 {
   return c * v;
 }
 
-Vec makeVec(double x, double y, double z)
+Line points2line(Point p1, Point p2)
 {
-  Point p {x, y, z};
-  p.vec = true;
-  return p;
+  Line l;
+  l.p = p1;
+  l.dir = p2-p1;
+  return l;
 }
 
-Line::Line(Point p1, Point p2)
+Line pdir2line(Point p, Point dir)
 {
-  p = p1;
-  
-  if(p2.vec)
-  {
-    dir = p2;
-  }
-
-  else
-  {
-    dir = p2 - p1;
-  }
-
-  if(zero(dir))
-  {
-    std::cerr << "cannot make line from " << p1 << " and " << p2 << std::endl;
-  }
+  Line l;
+  l.p = p;
+  l.dir = dir;
+  return l;
 }
 
-Plane::Plane(Point p1, Point p2, Point p3)
+Plane points2plane(Point p1, Point p2, Point p3)
 {
-  Vec d1, d2;
-  if(p2.vec && p3.vec)
-  {
-    d1 = p2;
-    d2 = p3;
-  }
-
-  else if(!p2.vec && !p3.vec)
-  {
-    d1 = p2-p1;
-    d2 = p3-p1;
-  }
-  
-  else
-  {
-    std::cerr << "Plane(): invalid combination " << p1 << " " << p2 << " " << p3 << std::endl;
-    return;
-  }
-  
-  Vec N = cross(d1, d2);
-  a = N.x;
-  b = N.y;
-  c = N.z;
-
-  d = dot(p1, N);
+  Point d1 = p2-p1;
+  Point d2 = p3-p1;
+  return pdir2plane(p1, d1, d2);
 }
 
-Vec Plane::normal()
+Plane pdir2plane(Point p, Point d1, Point d2)
 {
-  return makeVec(a, b, c);
+  Point N = cross(d1, d2);
+  double d = dot(p, N);
+  return Plane(N.x, N.y, N.z, d);
 }
 
-Rectangle::Rectangle(Point _tl, Vec _h, Vec _w): tl{_tl}, h{_h}, w{_w}
+Plane::Plane(double _a, double _b, double _c, double _d): a{_a}, b{_b}, c{_c}, d{_d} {}
+
+Point Plane::normal()
 {
-  tl.vec = false;
-  tl.vec = true;
-  tl.vec = true;
+  return {a, b, c};
 }
+
+Rectangle::Rectangle(Point _tl, Point _h, Point _w): tl{_tl}, h{_h}, w{_w} {}
 
 Point Rectangle::tr()
 {
   Point p = tl+w;
-  p.vec = false;
   return p;
 }
 
 Point Rectangle::bl()
 {
   Point p = tl+h;
-  p.vec = false;
   return p;
 }
 
 Point Rectangle::br()
 {
   Point p = tl+h+w;
-  p.vec = false;
   return p;
 }
 
 Plane Rectangle::plane()
 {
-  Plane pl {
+  return pdir2plane(tl, h, w);
 }
 
 Point intersect(Plane pl, Line l)
@@ -157,7 +125,6 @@ Point intersect(Plane pl, Line l)
   double t = numer/denom;
   
   Point p = l.p + t*l.dir;
-  p.vec = false;
   return p;
 }
 
