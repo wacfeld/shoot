@@ -7,6 +7,7 @@ struct Line;
 struct Plane;
 struct Rectangle;
 struct Orient;
+struct Point2D;
 
 typedef Point Vec;
 
@@ -52,6 +53,11 @@ struct Point
 
   Point orient(Orient o);
   Point unorient(Orient o);
+};
+
+struct Point2D: public Point
+{
+  Point2D(double _x, double _y): Point{_x,_y,0} {}
 };
 
 struct Line

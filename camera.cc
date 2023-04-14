@@ -17,6 +17,25 @@ Camera::Camera(Point _p, Orient _o, double _width, double _height, double _dist)
   plane = points2plane(cent, top, right);
 }
 
+Point2D Camera::cent2tl(Point2D P)
+{
+  Point2D tl {-width/2, -height/2};
+  return P - tl;
+}
+
+SDL_Point Camera::scale(SDL_Point P)
+{
+  
+}
+
+SDL_Rect Camera::screenRect(Rectangle proj)
+{
+  // unorient proj so it's parallel to the YZ plane
+  Rectangle rect = proj.unorient(o);
+
+  // calculate relation to screen
+}
+
 // Rectangle Camera::getRect()
 // {
 //   // create the rectangle's 3 corners with alt=0, azi=0, roll=0

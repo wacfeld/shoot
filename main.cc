@@ -75,7 +75,8 @@ int main()
   // Point inter = intersect(pl, l);
   // std::cout << inter << std::endl;
 
-  Camera cam {{0, 0, 0}, {0, 0, 0.2}, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 1};
+  Orient o {0, 0, 0.2};
+  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 1};
   // Rectangle r = cam.getRect();
   
   Point bl {30,0,-10};
@@ -90,6 +91,7 @@ int main()
   Wall wall {wr, text};
 
   Rectangle proj = project(wr, cam.plane, cam.p);
+  proj = proj.unorient(o);
   
 
   close();
