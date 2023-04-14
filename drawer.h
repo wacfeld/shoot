@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "linalg.h"
+
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 
@@ -16,6 +18,13 @@ struct Pixel
   unsigned char r;
   unsigned char g;
   unsigned char b;
+};
+
+// a wall is a rectangle in space with an image on it
+struct Wall
+{
+  Rectangle rect;
+  SDL_Texture *img;
 };
 
 void update();
