@@ -104,7 +104,9 @@ Point Plane::normal()
 
 // Rectangle::Rectangle(Point _bl, Point _w, Point _h): bl_dat{_bl}, w{_w}, h{_h} {}
 
-Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): bl_dat{bl}, w{br-bl}, h{tl-bl} {}
+// Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): bl_dat{bl}, w{br-bl}, h{tl-bl} {}
+
+Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): _bl{bl}, _br{br}, _tl{tl} {}
 
 // Point Rectangle::tr()
 // {
@@ -126,7 +128,7 @@ Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): bl_dat{bl}, w{br-b
 
 Plane Rectangle::plane()
 {
-  return pdir2plane(bl_dat, w, h);
+  return pdir2plane(bl(), w(), h());
 }
 
 Point intersect(Plane pl, Line l)
@@ -204,20 +206,40 @@ Vec Point::rotateZ(double th)
   return v;
 }
 
-Point::orient(Orient o)
+Point Point::orient(Orient o)
 {
   Point p {x,y,z};
-  p = p.rotateX(roll);
-  p = p.rotateZ(alt);
-  p = p.rotateY(azi);
+  p = p.rotateX(o.roll);
+  p = p.rotateZ(o.alt);
+  p = p.rotateY(o.azi);
   return p;
 }
 
-Point::unorient(Orient o)
+Point Point::unorient(Orient o)
 {
   Point p {x,y,z};
-  p = p.rotateY(-azi);
-  p = p.rotateZ(-alt);
-  p = p.rotateX(-roll);
+  p = p.rotateY(-o.azi);
+  p = p.rotateZ(-o.alt);
+  p = p.rotateX(-o.roll);
   return p;
+}
+
+Rectangle Rectangle::orient(Orient o)
+{
+  Point new_bl = bl().orient(o);
+  Point new_br = br().orient(o);
+  Point new_tl = tl().orient(o);
+  Point new_tr = tr().orient(o);
+
+  return Rectangle{new_bl, new_br, new_tl, new_tr};
+}
+
+Rectangle Rectangle::unorient(Orient o)
+{
+  Point new_bl = bl().unorient(o);
+  Point new_br = br().unorient(o);
+  Point new_tl = tl().unorient(o);
+  Point new_tr = tr().unorient(o);
+
+  return Rectangle{new_bl, new_br, new_tl, new_tr};
 }

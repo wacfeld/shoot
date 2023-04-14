@@ -9,7 +9,7 @@ struct Camera
   Orient o;
   double width, height;
   double dist;
-  Plane pl;
+  Plane plane;
   
   Camera(Point p, Orient o, double width, double height, double dist);
 };

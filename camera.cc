@@ -9,12 +9,12 @@ Camera::Camera(Point _p, Orient _o, double _width, double _height, double _dist)
   Vec right = Point{0,0,1} + cent;
 
   // orient them
-  cent = cent.orient(cent);
-  top = cent.orient(top);
-  right = cent.orient(right);
+  cent = cent.orient(o);
+  top = top.orient(o);
+  right = right.orient(o);
 
   // write into pl
-  pl = points2plane(cent, top, right);
+  plane = points2plane(cent, top, right);
 }
 
 // Rectangle Camera::getRect()

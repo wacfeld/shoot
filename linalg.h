@@ -6,6 +6,7 @@ struct Point;
 struct Line;
 struct Plane;
 struct Rectangle;
+struct Orient;
 
 typedef Point Vec;
 
@@ -65,23 +66,34 @@ struct Plane
   double a, b, c, d; // ax + by + cz = d
 
   Plane(double a, double b, double c, double d);
+  Plane() {}
   Point normal();
 };
 
 struct Rectangle
 {
-  Point bl_dat;
-  Point w;
-  Point h;
+private:
+  Point _bl;
+  Point _br;
+  Point _tl;
+  // Point w;
+  // Point h;
 
+public:
   // Rectangle(Point bl, Point h, Point w);
   Rectangle(Point bl, Point br, Point tl, Point tr);
   Plane plane();
 
-  Point bl() {return bl_dat;}
-  Point tr() {return bl_dat + h + w;}
-  Point tl() {return bl_dat + h;}
-  Point br() {return bl_dat + w;}
+  Point h() {return _tl-_bl;}
+  Point w() {return _br-_bl;}
+
+  Point bl() {return _bl;}
+  Point tr() {return _bl+h()+w();}
+  Point tl() {return _tl;}
+  Point br() {return _br;}
+
+  Rectangle orient(Orient o);
+  Rectangle unorient(Orient o);
 };
 
 #endif
