@@ -36,10 +36,15 @@ void Camera::screenQuad(Rectangle proj)
   Rectangle rect = proj.unorient(o);
 
   // calculate relation to screen
-  Point2D tl = rect.tl().lshift();
-  Point2D bl = rect.bl().lshift();
-  Point2D tr = rect.tr().lshift();
-  Point2D br = rect.br().lshift();
+  Point2D tl = rect.tl();
+  Point2D bl = rect.bl();
+  Point2D tr = rect.tr();
+  Point2D br = rect.br();
+
+  tl.x = tl.z;
+  tr.x = tr.z;
+  bl.x = bl.z;
+  br.x = br.z;
   
   std::cout << bl << " " << br << " " << tl << " " << tr << std::endl;
   tl = scale(cent2tl(tl));
@@ -48,6 +53,12 @@ void Camera::screenQuad(Rectangle proj)
   tr = scale(cent2tl(tr));
 
   std::cout << bl << " " << br << " " << tl << " " << tr << std::endl;
+  
+  SDL_SetRenderDrawColor(grend, 0x33, 0xCC, 0xFF, 0xFF);
+  SDL_RenderDrawPoint(grend, (int)tl.x, (int)tl.y);
+  SDL_RenderDrawPoint(grend, (int)tr.x, (int)tr.y);
+  SDL_RenderDrawPoint(grend, (int)br.x, (int)br.y);
+  SDL_RenderDrawPoint(grend, (int)bl.x, (int)bl.y);
 }
 
 // Rectangle Camera::getRect()

@@ -75,13 +75,13 @@ int main()
   // Point inter = intersect(pl, l);
   // std::cout << inter << std::endl;
 
-  Orient o {0, 0, 0.2};
-  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/1000, (double)SCREEN_HEIGHT/1000, 5};
+  Orient o {0, 0, 0};
+  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 5};
   // Rectangle r = cam.getRect();
   
-  Point bl {30,0,-10};
-  Vec h {0, 1.788, 0};
-  Vec w {0, 0, 1.2};
+  Point bl {7,0,0};
+  Vec h {5, 1.788, 0};
+  Vec w {5, 0, 1.2};
   Rectangle wr {bl, bl+w, bl+h, bl+h+w};
 
   init();
@@ -94,6 +94,8 @@ int main()
   proj = proj.unorient(o);
   
   cam.screenQuad(proj);
+  update();
+  hang();
 
   close();
 }
