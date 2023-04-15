@@ -16,7 +16,8 @@ struct Camera
 
   Point2D cent2tl(Point2D P);
   Point2D scale(Point2D P);
-  void screenQuad(Rectangle proj);
+  // void screenQuad(Rectangle proj);
+  Point toscreen(Point p);
 };
 
 #endif

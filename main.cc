@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <vector>
 #include <chrono>
 
 #include "drawer.h"
@@ -76,12 +77,12 @@ int main()
   // std::cout << inter << std::endl;
 
   Orient o {0, 0, 0};
-  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 5};
+  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 3};
   // Rectangle r = cam.getRect();
   
-  Point bl {7,0,0};
-  Vec h {5, 1.788, 0};
-  Vec w {5, 0, 1.2};
+  Point bl {50,0,0};
+  Vec h {3, 17.88, 0};
+  Vec w {0, 0, 12};
   Rectangle wr {bl, bl+w, bl+h, bl+h+w};
 
   init();
@@ -90,10 +91,22 @@ int main()
 
   Wall wall {wr, text};
 
-  Rectangle proj = project(wr, cam.plane, cam.p);
-  proj = proj.unorient(o);
+  std::vector<Point> points;
+  points.push_back(project(wr.bl(), cam.plane, cam.p));
+  points.push_back(project(wr.br(), cam.plane, cam.p));
+  points.push_back(project(wr.tl(), cam.plane, cam.p));
+  points.push_back(project(wr.tr(), cam.plane, cam.p));
+
+  SDL_SetRenderDrawColor(grend, 0x33, 0xCC, 0xFF, 0xFF);
+  for(Point p : points)
+  {
+    Point temp = cam.toscreen(p);
+    SDL_RenderDrawPoint(grend, (int)temp.x, (int)temp.y);
+  }
+  // Rectangle proj = project(wr, cam.plane, cam.p);
+  // proj = proj.unorient(o);
   
-  cam.screenQuad(proj);
+  // cam.screenQuad(proj);
   update();
   hang();
 

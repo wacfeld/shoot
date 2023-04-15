@@ -136,10 +136,10 @@ Rectangle::Rectangle(Point bl, Point br, Point tl, Point tr): _bl{bl}, _br{br}, 
 //   return p;
 // }
 
-Plane Rectangle::plane()
-{
-  return pdir2plane(bl(), w(), h());
-}
+// Plane Rectangle::plane()
+// {
+//   return pdir2plane(bl(), w(), h());
+// }
 
 Point intersect(Plane pl, Line l)
 {
@@ -161,28 +161,34 @@ bool zero(Point p)
   return p.x == 0 && p.y == 0 && p.z == 0;
 }
 
-Rectangle project(Rectangle src, Rectangle dest, Point p)
+Point project(Point src, Plane inter, Point dest)
 {
-  return project(src, dest.plane(), p);
+  Line l = points2line(src, dest);
+  return  intersect(inter, l);
 }
 
-Rectangle project(Rectangle src, Plane dest, Point p)
-{
-  Line l = points2line(src.bl(), p);
-  Point bl = intersect(dest, l);
-  
-  l = points2line(src.br(), p);
-  Point br = intersect(dest, l);
+// Rectangle project(Rectangle src, Rectangle dest, Point p)
+// {
+//   return project(src, dest.plane(), p);
+// }
 
-  l = points2line(src.tl(), p);
-  Point tl = intersect(dest, l);
-
-  l = points2line(src.tr(), p);
-  Point tr = intersect(dest, l);
+// Rectangle project(Rectangle src, Plane dest, Point p)
+// {
+//   Line l = points2line(src.bl(), p);
+//   Point bl = intersect(dest, l);
   
-  Rectangle res {bl, br, tl, tr};
-  return res;
-}
+//   l = points2line(src.br(), p);
+//   Point br = intersect(dest, l);
+
+//   l = points2line(src.tl(), p);
+//   Point tl = intersect(dest, l);
+
+//   l = points2line(src.tr(), p);
+//   Point tr = intersect(dest, l);
+  
+//   Rectangle res {bl, br, tl, tr};
+//   return res;
+// }
 
 double deg2rad(double deg)
 {

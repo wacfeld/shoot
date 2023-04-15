@@ -25,8 +25,9 @@ Point intersect(Plane pl, Line l);
 bool parallel(Plane pl, Line l);
 bool zero(Point p);
 
-Rectangle project(Rectangle src, Rectangle dest, Point p);
-Rectangle project(Rectangle src, Plane dest, Point p);
+Point project(Point src, Plane inter, Point dest);
+// Rectangle project(Rectangle src, Rectangle dest, Point p);
+// Rectangle project(Rectangle src, Plane dest, Point p);
 
 double deg2rad(double deg);
 
