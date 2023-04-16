@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <vector>
 
 #include "linalg.h"
 
@@ -23,7 +24,7 @@ struct Pixel
 // a wall is a rectangle in space with an image on it
 struct Wall
 {
-  Rectangle rect;
+  std::vector<Point> points;
   SDL_Texture *img;
 };
 
@@ -38,6 +39,8 @@ void hang();
 void close();
 
 SDL_Texture* loadTexture( std::string path );
+
+void fillPolygon(std::vector<Point2D> verts, SDL_Color col);
 
 void draw(int X, int Y, SDL_Surface *surf);
 

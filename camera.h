@@ -18,6 +18,7 @@ struct Camera
   Point2D scale(Point2D P);
   // void screenQuad(Rectangle proj);
   Point toscreen(Point p);
+  std::vector<Point> wall2screen(Wall wall);
 };
 
 #endif

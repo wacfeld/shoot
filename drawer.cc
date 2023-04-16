@@ -187,3 +187,30 @@ SDL_Point getsize(SDL_Texture *texture)
     return size;
 }
 
+SDL_FPoint point2fp(Point2D p)
+{
+  return {(float) p.x, (float)p.y};
+}
+
+void fillPolygon(std::vector<Point2D> verts, SDL_Color col)
+{
+  if(verts.size() <= 2)
+  {
+    std::cerr << "polygon needs at least 3 vertices\n";
+    return;
+  }
+
+  Point2D u = verts[0];
+  for(unsigned long i = 1; i < verts.size()-1; i++)
+  {
+    Point2D v = verts[i];
+    Point2D w = verts[i+1];
+    SDL_Vertex tri[3] =
+    {
+      {point2fp(u), col, SDL_FPoint{0}},
+      {point2fp(v), col, SDL_FPoint{0}},
+      {point2fp(w), col, SDL_FPoint{0}},
+    };
+    SDL_RenderGeometry(grend, nullptr, tri, 3, nullptr, 0);
+  }
+}

@@ -76,33 +76,53 @@ int main()
   // Point inter = intersect(pl, l);
   // std::cout << inter << std::endl;
 
-  Orient o {0, 0, 0};
-  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 3};
   // Rectangle r = cam.getRect();
   
-  Point bl {50,0,0};
-  Vec h {3, 17.88, 0};
-  Vec w {0, 0, 12};
-  Rectangle wr {bl, bl+w, bl+h, bl+h+w};
+  // Point bl {50,0,0};
+  // Vec h {3, 17.88, 0};
+  // Vec w {0, 0, 12};
+  // Rectangle wr {bl, bl+w, bl+h, bl+h+w};
 
   init();
   SDL_Texture *text = loadTexture("media/monalisa.jpg");
   // SDL_Point size = getsize(text);
 
-  Wall wall {wr, text};
+  Orient o {0, 0, 0};
+  Camera cam {{0, 0, 0}, o, (double)SCREEN_WIDTH/100, (double)SCREEN_HEIGHT/100, 3};
 
-  std::vector<Point> points;
-  points.push_back(project(wr.bl(), cam.plane, cam.p));
-  points.push_back(project(wr.br(), cam.plane, cam.p));
-  points.push_back(project(wr.tl(), cam.plane, cam.p));
-  points.push_back(project(wr.tr(), cam.plane, cam.p));
+  Point a = {50,0,0};
+  Point b = a + Point{0,17.88,0};
+  Point c = a + Point{0,0,12};
+  Point d = c + b-a;
+  
+  Wall wall {{a,b,d,c}, text};
 
-  SDL_SetRenderDrawColor(grend, 0x33, 0xCC, 0xFF, 0xFF);
-  for(Point p : points)
-  {
-    Point temp = cam.toscreen(p);
-    SDL_RenderDrawPoint(grend, (int)temp.x, (int)temp.y);
-  }
+  std::vector<Point> poly = cam.wall2screen(wall);
+
+  // for(Point p : wall.points)
+  // {
+  //   Point proj = project(p, cam.plane, cam.p);
+  //   Point scr = cam.toscreen(proj);
+  //   poly.push_back(scr);
+  //   // SDL_RenderDrawPoint(grend, (int)scr.x, (int)scr.y);
+  //   std::cout << scr << std::endl;
+  // }
+
+  SDL_Color col = {0x33, 0xCC, 0xFF};
+  fillPolygon(poly, col);
+  
+  // std::vector<Point> points;
+  // points.push_back(project(wr.bl(), cam.plane, cam.p));
+  // points.push_back(project(wr.br(), cam.plane, cam.p));
+  // points.push_back(project(wr.tl(), cam.plane, cam.p));
+  // points.push_back(project(wr.tr(), cam.plane, cam.p));
+
+  // SDL_SetRenderDrawColor(grend, 0x33, 0xCC, 0xFF, 0xFF);
+  // for(Point p : points)
+  // {
+  //   Point temp = cam.toscreen(p);
+  //   SDL_RenderDrawPoint(grend, (int)temp.x, (int)temp.y);
+  // }
   // Rectangle proj = project(wr, cam.plane, cam.p);
   // proj = proj.unorient(o);
   

@@ -30,13 +30,25 @@ Point2D Camera::scale(Point2D P)
   return P;
 }
 
-Point Camera::toscreen(Point p)
+Point Camera::toscreen(Point proj)
 {
-  p = p.unorient(o);
-  p.x = p.z;
+  proj = proj.unorient(o);
+  proj.x = proj.z;
 
-  p = scale(cent2tl(p));
-  return p;
+  proj = scale(cent2tl(proj));
+  return proj;
+}
+
+std::vector<Point2D> Camera::wall2screen(Wall wall)
+{
+  std::vector<Point> points;
+  for(Point pt : wall.points)
+  {
+    Point proj = project(pt, plane, p);
+    Point scr = toscreen(proj);
+    points.push_back(scr);
+  }
+  return points;
 }
 
 // void Camera::screenQuad(Rectangle proj)
